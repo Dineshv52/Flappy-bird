@@ -14,7 +14,7 @@ RUN pip install python-telegram-bot
 EXPOSE 80
 
 # Define environment variable
-ENV TELEGRAM_BOT_TOKEN=<YOUR_TELEGRAM_BOT_TOKEN>
+ENV BOT_TOKEN=<YOUR_TELEGRAM_BOT_TOKEN>
 
 # Run the bot
 CMD ["python", "./app.py"]
