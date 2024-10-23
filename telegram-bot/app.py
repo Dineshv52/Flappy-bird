@@ -1,28 +1,23 @@
 import os
-import requests
-from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
-from telegram.ext import Updater, CommandHandler, CallbackContext
+from telegram import Update
+from telegram.ext import ApplicationBuilder, CommandHandler
 
-# Get environment variables for bot token and game URL
-BOT_TOKEN = os.getenv("BOT_TOKEN")
-GAME_URL = os.getenv("GAME_URL")
+GAME_URL = "flappy-bird-cyan-eight.vercel.app"
 
+async def start(update: Update, context) -> None:
+    await update.message.reply_text(f"Welcome! Play the Flappy Bird game here: {GAME_URL}")
 
-# Start command handler
-def start(update: Update, context: CallbackContext):
-    keyboard = [[InlineKeyboardButton("Play Flappy Bird", url=GAME_URL)]]
-    reply_markup = InlineKeyboardMarkup(keyboard)
-    update.message.reply_text("Click the button below to play the game:", reply_markup=reply_markup)
-
-
-def main():
-    updater = Updater(BOT_TOKEN, use_context=True)
-    dp = updater.dispatcher
-    dp.add_handler(CommandHandler("start", start))
-
-    updater.start_polling()
-    updater.idle()
-
+async def help_command(update: Update, context) -> None:
+    await update.message.reply_text("Use /start to get the game link.")
 
 if __name__ == "__main__":
-    main()
+    TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
+    application = ApplicationBuilder().token(TOKEN).build()
+
+    start_handler = CommandHandler('start', start)
+    help_handler = CommandHandler('help', help_command)
+
+    application.add_handler(start_handler)
+    application.add_handler(help_handler)
+
+    application.run_polling()
