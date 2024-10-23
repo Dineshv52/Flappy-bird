@@ -24,8 +24,8 @@ let scoreText;
 const game = new Phaser.Game(config);
 
 function preload() {
-    this.load.image('bird', 'https://example.com/bird.png'); // Replace with actual image
-    this.load.image('pipe', 'https://example.com/pipe.png'); // Replace with actual image
+    this.load.image('bird', 'bird.png'); // Replace with actual image
+    this.load.image('pipe', 'pipe.png'); // Replace with actual image
 }
 
 function create() {
